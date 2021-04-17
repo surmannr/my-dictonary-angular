@@ -1,0 +1,73 @@
+<div class="container">
+  <mat-card class="yellow text-dark mt-5 align-items-center flex justify-content-center p-3 mat-elevation-z8">
+    <div class="row align-items-center flex justify-content-center text-center m-4 pt-3">
+      <h1 class="font" style="font-size: 60px">Szinonimák keresése</h1>
+    </div>
+  </mat-card>
+  <div class="col-12 w-100 mt-3 mb-3">
+    <mat-card class="yellow w-100 mat-elevation-z8">
+      <div class="input-group align-items-center flex justify-content-center">
+        <span class="input-group-text bg-dark text-light" id="basic-addon3">Keresett szó</span>
+        <input
+          matInput
+          type="text"
+          class="form-control w-25"
+          id="synonym-word"
+          placeholder="Szinoníma keresése..."
+        />
+        <select class="form-select" id="lang" panelClass="example-panel-green">
+          <option panelClass="example-panel-green" value="nyelv">
+            Kiválasztott nyelv
+          </option>
+          <option
+            panelClass="example-panel-green"
+            *ngFor="let lang of languages"
+            value="{{ lang }}"
+          >
+            {{ convertToNormalName(lang) }}
+          </option>
+        </select>
+        <button
+          mat-flat-button
+          type="button"
+          class="btn btn-dark"
+          (click)="searchSynonym()"
+        >
+          Keresés
+        </button>
+      </div>
+    </mat-card>
+  </div>
+  <div class="col-12 w-100">
+    <div class="row align-items-center flex justify-content-center rounded-bottom m-2">
+      <mat-card
+        class="card-synonyms mat-elevation-z8"
+        style="margin-bottom: 10px"
+        *ngFor="let syn of synonyms"
+      >
+        <mat-card-content>
+          <p *ngIf="syn.synonyms.includes('(')">
+            {{
+              syn.synonyms
+                .split("|")
+                .join(" , ")
+                .trim()
+                .slice(0, -1)
+                .concat(" - " + syn.category)
+            }}
+          </p>
+          <p *ngIf="!syn.synonyms.includes('(')">
+            {{ syn.synonyms.split("|").join(" , ").trim().slice(0, -1) }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="col-12" *ngIf="countOfSynonyms != 0">
+    <mat-card class="yellow mat-elevation-z8">
+      <h3 style="color: black">
+        <b>Találatok száma kategória szerint: {{ countOfSynonyms }}</b>
+      </h3>
+    </mat-card>
+  </div>
+</div>

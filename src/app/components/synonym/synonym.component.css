@@ -1,0 +1,19 @@
+.card-synonyms{
+    background-color: aliceblue;
+    color: black;
+    padding-left: 20px;
+}
+.card-synonyms:hover{
+    background-color: grey;
+    color:white;
+}
+.example-panel-green.mat-select-panel {
+    background: rgba(0, 255, 0, 0.5);
+}
+.yellow{
+    background-color: #FFD662FF;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+.font{
+    font-family: "Lucida Console", "Courier New", monospace;
+}
