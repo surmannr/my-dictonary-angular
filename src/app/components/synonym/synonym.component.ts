@@ -9,7 +9,13 @@ import * as $ from 'jquery';
   styleUrls: ['./synonym.component.css'],
 })
 export class SynonymComponent implements OnInit {
-  constructor(private synonymService: SynonymService) {}
+  constructor(private synonymService: SynonymService) {
+
+    let local = JSON.parse(localStorage.getItem('synonymdata')!);
+    this.synonyms = local;
+    if(this.synonyms != null)
+      this.countOfSynonyms = this.synonyms.length;
+  }
 
   languages: Array<String> = [];
 
@@ -43,7 +49,7 @@ export class SynonymComponent implements OnInit {
         
       } 
     }).catch(e => this.synonymService.openSnackBar("A keresett szóra nincs találat az adatbázisban!"));
-
+    localStorage.setItem('synonymdata', JSON.stringify(this.synonyms));
   }
 
   // ["cs_CZ", "da_DK", "de_CH", "de_DE", "en_US", "el_GR", "es_ES", "fr_FR", "hu_HU", "it_IT", "no_NO", "pl_PL", "pt_PT", "ro_RO", "ru_RU", "sk_SK"];

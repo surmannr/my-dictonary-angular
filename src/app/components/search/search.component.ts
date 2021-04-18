@@ -12,7 +12,14 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class SearchComponent implements OnInit,AfterViewInit {
 
-  constructor(private searchService: SearchService) {}
+  constructor(private searchService: SearchService) {
+
+    let local = JSON.parse(localStorage.getItem('searchdata')!);
+    this.translation = local;    
+    if(this.translation != null)
+      this.countOfWords = this.translation.length;
+    this.dataSource = new MatTableDataSource(this.translation);
+  }
   
   dataSource = new MatTableDataSource<String[]>();
 
@@ -94,6 +101,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
         if(this.countOfWords==0) this.searchService.openSnackBar("Nem található a keresett elem az adatbázisban!");
       })
       .catch((e) => console.log(e));
+      localStorage.setItem('searchdata', JSON.stringify(this.translation));
   }
   
   // Országkód alapján visszaadja az ország tényleges nevét.

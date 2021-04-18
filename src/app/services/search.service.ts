@@ -37,6 +37,7 @@ export class SearchService {
       }).catch((e) => {
         console.log(e);
       });
+      
     }
 
     // Visszaadja a nyelvek listáját
